@@ -70,4 +70,31 @@ test.describe('Instance settings', () => {
             await expect(note).toHaveText('Saved. Changes apply to new secrets.');
         }
     });
+
+    test('uses the instance logo as the favicon', async ({ authenticatedPage: page }) => {
+        const note = page.getByRole('status');
+
+        await page.goto('/dashboard/instance');
+        await page.getByTestId('instanceLogo-input').setInputFiles({
+            name: 'logo.png',
+            mimeType: 'image/png',
+            buffer: PNG_PIXEL,
+        });
+        await page.getByRole('button', { name: 'Save', exact: true }).click();
+        await expect(note).toHaveText('Saved. Changes apply to new secrets.');
+
+        try {
+            // The favicon follows the instance logo.
+            await page.goto('/');
+            await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
+                'href',
+                /^data:image\/png;base64,/
+            );
+        } finally {
+            await page.goto('/dashboard/instance');
+            await page.getByRole('button', { name: 'Remove' }).click();
+            await page.getByRole('button', { name: 'Save', exact: true }).click();
+            await expect(note).toHaveText('Saved. Changes apply to new secrets.');
+        }
+    });
 });
