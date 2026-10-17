@@ -26,6 +26,8 @@ COPY src ./src
 COPY public ./public
 COPY index.html tsconfig*.json vite.config.ts tailwind.config.js ./
 COPY server.ts ./
+COPY scripts ./scripts
+COPY logo.svg ./logo.svg
 RUN npm run build
 
 # Production dependencies
