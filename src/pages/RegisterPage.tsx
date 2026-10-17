@@ -11,6 +11,11 @@ import { useErrorModal } from '../hooks/useModalState';
 import { authClient } from '../lib/auth';
 import { useHemmeligStore } from '../store/hemmeligStore';
 import { getPasswordStrength } from '../utils/password';
+import {
+    hasInvalidUsernameCharacters,
+    USERNAME_MAX_LENGTH,
+    USERNAME_MIN_LENGTH,
+} from '../utils/username';
 
 export function RegisterPage() {
     const { t } = useTranslation();
@@ -177,6 +182,14 @@ export function RegisterPage() {
                         onChange={(value) => setFormData((prev) => ({ ...prev, username: value }))}
                         autoComplete="username"
                         required
+                        minLength={USERNAME_MIN_LENGTH}
+                        maxLength={USERNAME_MAX_LENGTH}
+                        hint={t('register_page.username_hint')}
+                        error={
+                            formData.username && hasInvalidUsernameCharacters(formData.username)
+                                ? t('register_page.username_invalid')
+                                : undefined
+                        }
                     />
 
                     <FormField

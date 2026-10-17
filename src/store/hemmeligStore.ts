@@ -3,6 +3,20 @@ import { create } from 'zustand';
 import { api } from '../lib/api';
 import { type DefaultTheme, useThemeStore } from './themeStore';
 
+/**
+ * Applies the instance logo as the favicon. When no logo is set, the
+ * default /favicon.ico is kept.
+ */
+function applyFavicon(logo: string) {
+    let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+    link.href = logo || '/favicon.ico';
+}
+
 // Public settings available to all users
 export type HemmeligSettings = {
     instanceName: string;
@@ -149,6 +163,7 @@ export const useHemmeligStore = create<HemmeligState>((set, get) => ({
         if (settings.instanceName) {
             document.title = settings.instanceName;
         }
+        applyFavicon(settings.instanceLogo);
         // The instance default applies only until the visitor picks a theme.
         useThemeStore.getState().applyDefaultTheme(settings.defaultTheme);
     },
