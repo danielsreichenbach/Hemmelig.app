@@ -17,6 +17,36 @@ function applyFavicon(logo: string) {
     link.href = logo || '/favicon.ico';
 }
 
+/**
+ * Applies the instance name and description to the page title and the
+ * meta/OG/Twitter tags. When no value is set, the default is kept.
+ */
+function applyBranding(settings: HemmeligSettings) {
+    const title = settings.instanceName || 'Hemmelig';
+    const description =
+        settings.instanceDescription ||
+        'Share secrets securely with encrypted messages that automatically self-destruct after being read.';
+
+    document.title = title;
+
+    setMeta('name', 'title', title);
+    setMeta('name', 'description', description);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', description);
+    setMeta('property', 'twitter:title', title);
+    setMeta('property', 'twitter:description', description);
+}
+
+function setMeta(attr: string, key: string, value: string) {
+    let meta = document.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+    if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(attr, key);
+        document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', value);
+}
+
 // Public settings available to all users
 export type HemmeligSettings = {
     instanceName: string;
@@ -160,9 +190,7 @@ export const useHemmeligStore = create<HemmeligState>((set, get) => ({
     },
     setSettings: (settings) => {
         set({ settings });
-        if (settings.instanceName) {
-            document.title = settings.instanceName;
-        }
+        applyBranding(settings);
         applyFavicon(settings.instanceLogo);
         // The instance default applies only until the visitor picks a theme.
         useThemeStore.getState().applyDefaultTheme(settings.defaultTheme);
