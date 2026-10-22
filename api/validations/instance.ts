@@ -26,6 +26,11 @@ export const instanceSettingsSchema = z.object({
     instanceLogo: logoSchema.optional(),
     // Shown instead of instanceLogo when the dark theme is active.
     instanceLogoDark: logoSchema.optional(),
+    // The accent color (hex, e.g. #289b8e). Empty uses the default.
+    primaryColor: z
+        .string()
+        .regex(/^#[0-9a-fA-F]{6}$/, 'Color must be a hex color (e.g. #289b8e)')
+        .optional(),
     // The theme for visitors who have not chosen one.
     defaultTheme: z.enum(['light', 'dark', 'system']).optional(),
     allowRegistration: z.boolean().optional(),

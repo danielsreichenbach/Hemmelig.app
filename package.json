@@ -6,6 +6,8 @@
     "main": "dist/app.js",
     "scripts": {
         "build": "npx vite build",
+        "prebuild": "npm run generate:icons",
+        "generate:icons": "node scripts/generate-icons.mjs",
         "start": "npx prisma migrate deploy && npx tsx dist/app.js",
         "dev:api": "npx prisma migrate dev && npx tsx --watch server.ts",
         "dev:client": "npx vite",
@@ -99,6 +101,7 @@
         "react-dropzone": "^14.3.8",
         "react-i18next": "^16.5.0",
         "react-router-dom": "^7.18.2",
+        "sharp": "^0.35.5",
         "sonner": "^2.0.7",
         "tailwindcss": "^4.1.18",
         "tsx": "^4.23.12",

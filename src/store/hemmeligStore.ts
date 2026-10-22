@@ -3,6 +3,64 @@ import { create } from 'zustand';
 import { api } from '../lib/api';
 import { type DefaultTheme, useThemeStore } from './themeStore';
 
+/**
+ * Applies the instance logo as the favicon. When no logo is set, the
+ * default /favicon.ico is kept.
+ */
+function applyFavicon(logo: string) {
+    let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+    link.href = logo || '/favicon.ico';
+}
+
+/**
+ * Applies the instance name and description to the page title and the
+ * meta/OG/Twitter tags. When no value is set, the default is kept.
+ */
+function applyBranding(settings: HemmeligSettings) {
+    const title = settings.instanceName || 'Hemmelig';
+    const description =
+        settings.instanceDescription ||
+        'Share secrets securely with encrypted messages that automatically self-destruct after being read.';
+
+    document.title = title;
+
+    setMeta('name', 'title', title);
+    setMeta('name', 'description', description);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', description);
+    setMeta('property', 'twitter:title', title);
+    setMeta('property', 'twitter:description', description);
+}
+
+function setMeta(attr: string, key: string, value: string) {
+    let meta = document.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+    if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(attr, key);
+        document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', value);
+}
+
+/**
+ * Applies the instance accent color to the light and dark themes. When no
+ * color is set, the default is kept.
+ */
+function applyAccentColor(color: string) {
+    const existing = document.getElementById('instance-accent-color');
+    if (existing) existing.remove();
+    if (!color) return;
+    const style = document.createElement('style');
+    style.id = 'instance-accent-color';
+    style.textContent = `:root { --color-accent: ${color}; } .dark { --color-accent: ${color}; }`;
+    document.head.appendChild(style);
+}
+
 // Public settings available to all users
 export type HemmeligSettings = {
     instanceName: string;
@@ -146,9 +204,9 @@ export const useHemmeligStore = create<HemmeligState>((set, get) => ({
     },
     setSettings: (settings) => {
         set({ settings });
-        if (settings.instanceName) {
-            document.title = settings.instanceName;
-        }
+        applyBranding(settings);
+        applyAccentColor(settings.primaryColor);
+        applyFavicon(settings.instanceLogo);
         // The instance default applies only until the visitor picks a theme.
         useThemeStore.getState().applyDefaultTheme(settings.defaultTheme);
     },

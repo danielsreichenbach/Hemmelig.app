@@ -105,8 +105,17 @@ const consumeInviteCode = async (code: string): Promise<void> => {
     }
 };
 
+// Read the instance name at module load time so the app name reflects the
+// instance. Falls back to 'Hemmelig' when the database is not ready.
+let appName = 'Hemmelig';
+try {
+    const settings = await resolveSettings();
+    appName = (settings as { instanceName?: string } | null)?.instanceName || 'Hemmelig';
+} catch {
+    // Database may not be ready yet (fresh install)
+}
 export const auth = betterAuth({
-    appName: 'Hemmelig',
+    appName,
     baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
     database: prismaAdapter(prisma, {
         provider: 'sqlite',

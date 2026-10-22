@@ -6,6 +6,11 @@ import { FormField } from '../components/FormField';
 import { LoadingButton } from '../components/LoadingButton';
 import Logo from '../components/Logo';
 import { api } from '../lib/api';
+import {
+    hasInvalidUsernameCharacters,
+    USERNAME_MAX_LENGTH,
+    USERNAME_MIN_LENGTH,
+} from '../utils/username';
 
 export function SetupPage() {
     const { t } = useTranslation();
@@ -89,8 +94,14 @@ export function SetupPage() {
                         onChange={(value) => setFormData((prev) => ({ ...prev, username: value }))}
                         autoComplete="username"
                         required
-                        minLength={3}
-                        maxLength={32}
+                        minLength={USERNAME_MIN_LENGTH}
+                        maxLength={USERNAME_MAX_LENGTH}
+                        hint={t('setup_page.username_hint')}
+                        error={
+                            formData.username && hasInvalidUsernameCharacters(formData.username)
+                                ? t('setup_page.username_invalid')
+                                : undefined
+                        }
                     />
 
                     <FormField

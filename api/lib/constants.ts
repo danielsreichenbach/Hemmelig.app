@@ -44,6 +44,7 @@ export const PUBLIC_SETTINGS_FIELDS = {
     instanceDescription: true,
     instanceLogo: true,
     instanceLogoDark: true,
+    primaryColor: true,
     defaultTheme: true,
     allowRegistration: true,
     defaultSecretExpiration: true,

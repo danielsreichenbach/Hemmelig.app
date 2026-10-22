@@ -22,6 +22,7 @@ type InstanceSettings = {
     instanceDescription: string;
     instanceLogo: string;
     instanceLogoDark: string;
+    primaryColor: string;
     defaultTheme: DefaultTheme;
     allowRegistration: boolean;
     requireEmailVerification: boolean;
@@ -409,6 +410,20 @@ export function InstancePage() {
                             false,
                             undefined,
                             'instanceDescription'
+                        )}
+                        {controlRow(
+                            'primary_color',
+                            <input
+                                type="color"
+                                className="h-8 w-16 rounded-sm border border-line bg-surface"
+                                value={generalSettings.primaryColor || '#000000'}
+                                onChange={(e) => setGeneralSetting('primaryColor', e.target.value)}
+                                disabled={isLocked('primaryColor')}
+                                aria-label={label('primary_color')}
+                            />,
+                            false,
+                            t('instance_page.general_settings.primary_color_hint'),
+                            'primaryColor'
                         )}
                         {controlRow(
                             'important_message',
