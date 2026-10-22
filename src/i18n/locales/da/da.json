@@ -452,6 +452,8 @@
             "logo_remove": "Fjern logo",
             "logo_hint": "PNG, JPEG, GIF, SVG eller WebP. Maks 512KB.",
             "logo_alt": "Instanslogo",
+            "primary_color_label": "Accent Color",
+            "primary_color_hint": "The accent color used for buttons and highlights. Leave empty to use the default.",
             "logo_invalid_type": "Ugyldig filtype. Upload venligst et PNG-, JPEG-, GIF-, SVG- eller WebP-billede.",
             "logo_too_large": "Filen er for stor. Maksimal størrelse er 512KB.",
             "default_expiration_label": "Standard hemmelighedsudløb",

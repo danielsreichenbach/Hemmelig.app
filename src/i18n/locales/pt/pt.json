@@ -452,6 +452,8 @@
             "logo_remove": "Remover logo",
             "logo_hint": "PNG, JPEG, GIF, SVG ou WebP. Máx. 512KB.",
             "logo_alt": "Logo da instância",
+            "primary_color_label": "Accent Color",
+            "primary_color_hint": "The accent color used for buttons and highlights. Leave empty to use the default.",
             "logo_invalid_type": "Tipo de arquivo inválido. Envie uma imagem PNG, JPEG, GIF, SVG ou WebP.",
             "logo_too_large": "Arquivo muito grande. O tamanho máximo é 512KB.",
             "default_expiration_label": "Expiração Padrão do Segredo",

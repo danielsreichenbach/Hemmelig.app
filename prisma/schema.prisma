@@ -130,6 +130,7 @@ model InstanceSettings {
     instanceDescription        String?  @default("")
     instanceLogo               String?  @default("") // Base64 encoded logo image
     instanceLogoDark           String?  @default("") // Base64 encoded logo for the dark theme
+    primaryColor               String?  @default("") // Accent color (hex, e.g. #289b8e)
     defaultTheme               String?  @default("dark") // light, dark or system
     allowRegistration          Boolean? @default(true)
     requireEmailVerification   Boolean? @default(false)

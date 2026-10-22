@@ -452,6 +452,8 @@
             "logo_remove": "Ta bort logotyp",
             "logo_hint": "PNG, JPEG, GIF, SVG eller WebP. Max 512KB.",
             "logo_alt": "Instanslogotyp",
+            "primary_color_label": "Accent Color",
+            "primary_color_hint": "The accent color used for buttons and highlights. Leave empty to use the default.",
             "logo_invalid_type": "Ogiltig filtyp. Ladda upp en PNG-, JPEG-, GIF-, SVG- eller WebP-bild.",
             "logo_too_large": "Filen är för stor. Maximal storlek är 512KB.",
             "default_expiration_label": "Standard hemlighetsutgång",

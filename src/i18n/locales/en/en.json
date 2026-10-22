@@ -452,6 +452,8 @@
             "logo_remove": "Remove logo",
             "logo_hint": "PNG, JPEG, GIF, SVG, or WebP. Max 512KB.",
             "logo_alt": "Instance logo",
+            "primary_color_label": "Accent Color",
+            "primary_color_hint": "The accent color used for buttons and highlights. Leave empty to use the default.",
             "logo_invalid_type": "Invalid file type. Please upload a PNG, JPEG, GIF, SVG, or WebP image.",
             "logo_too_large": "File is too large. Maximum size is 512KB.",
             "default_expiration_label": "Default Secret Expiration",

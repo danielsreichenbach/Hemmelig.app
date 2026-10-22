@@ -452,6 +452,8 @@
             "logo_remove": "Logo verwijderen",
             "logo_hint": "PNG, JPEG, GIF, SVG of WebP. Max. 512KB.",
             "logo_alt": "Logo server",
+            "primary_color_label": "Accent Color",
+            "primary_color_hint": "The accent color used for buttons and highlights. Leave empty to use the default.",
             "logo_invalid_type": "Ongeldig bestandstype. Upload een PNG-, JPEG-, GIF-, SVG- of WebP-afbeelding.",
             "logo_too_large": "Bestand is te groot. Maximale grootte is 512KB.",
             "default_expiration_label": "Standaard vervaldatum geheim",

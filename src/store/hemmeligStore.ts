@@ -47,6 +47,20 @@ function setMeta(attr: string, key: string, value: string) {
     meta.setAttribute('content', value);
 }
 
+/**
+ * Applies the instance accent color to the light and dark themes. When no
+ * color is set, the default is kept.
+ */
+function applyAccentColor(color: string) {
+    const existing = document.getElementById('instance-accent-color');
+    if (existing) existing.remove();
+    if (!color) return;
+    const style = document.createElement('style');
+    style.id = 'instance-accent-color';
+    style.textContent = `:root { --color-accent: ${color}; } .dark { --color-accent: ${color}; }`;
+    document.head.appendChild(style);
+}
+
 // Public settings available to all users
 export type HemmeligSettings = {
     instanceName: string;
@@ -191,6 +205,7 @@ export const useHemmeligStore = create<HemmeligState>((set, get) => ({
     setSettings: (settings) => {
         set({ settings });
         applyBranding(settings);
+        applyAccentColor(settings.primaryColor);
         applyFavicon(settings.instanceLogo);
         // The instance default applies only until the visitor picks a theme.
         useThemeStore.getState().applyDefaultTheme(settings.defaultTheme);
